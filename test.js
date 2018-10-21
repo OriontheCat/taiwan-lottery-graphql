@@ -1,12 +1,14 @@
-const fetch = require("node-fetch");
-(
-    async () => {
-        try {
-            const response = fetch('https://www.etax.nat.gov.tw/etwmain/front/ETW183W6?site=en')
-                .then(res => res.text())
-                .then(body => console.log(body));
-        } catch (error) {
-            console.log(error);
+const graphql = require('graphql-request');
+
+const request = graphql.request;
+
+const query = `{
+    getWinningNumbers(month:8,year:2018) {
+        special
+        grand
+        first
+        additional
         }
-    }
-)();
+}`
+
+request('https://taiwan-recipt-lottery.now.sh/graphql', query).then(data => console.log(data))
